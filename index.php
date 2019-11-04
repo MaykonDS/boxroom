@@ -1,0 +1,17 @@
+<?php
+include ('config.php');
+?>
+<html>
+  <head>
+    <title>BoxRoom</title>
+    <link rel="stylesheet" type="text/css" href="style/index.css">
+  </head>
+<body>  
+<a class="text-login" href="signin.php">ENTRAR</a>
+  <div class="gradient-border" id="box">BoxRoom <br><p style="
+    font-size: 20px;
+    text-align: justify;
+  ">Viva fora da <br> Caixa.</p>
+  </div>
+</body>
+</html>
