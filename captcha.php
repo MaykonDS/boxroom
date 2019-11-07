@@ -1,85 +1,116 @@
 
 <style type="text/css">
     @keyframes blink {
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 body {
-    background-color: #151515;
-    color: #eee;
-    font-family: 'Share Tech Mono', monospace;
-    user-select: none;
+    user-select: none;  
+    font-family: 'Calibri';
+    font-weight: 100;
+    color: #c6c6c6;
+    height: 100%;
 }
-.input-capacha {
-     position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 40px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: #fff;
-    background: #151515;
-}
-
-
 .info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    p { margin: 10px; }
+    position: relative;
+    top: 50px;
+    text-align: center;
+    font-size: 20px;
 }
-
 .button {
-    background-color: #111;
-    border: solid 1px #888;
-    padding: 8px 25px;
+    padding: 8px 66px;
     font-size: 26px;
     letter-spacing: 2px;
     cursor: pointer;
+    width: 100px;
+    border-radius: 10px;
+    display: inline;
+    border: 1px solid white;
+    font-size: 19px;
 }
-.rerun {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
+.button:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+.space {
+    height: 100px;
 }
 .start {
-    position: absolute;
     top: 36%;
-    left: 50%;
+    left: 40%;
     transform: translate(-50%, -50%);
 }
-
-
 span{
-color: #ff522b;
+    color: #c6c6c6;
+    font-weight: bold;
+}
+.ouvir-text {
+    margin-left: calc(50% - 86px);
+    font-size:23px;
+    color: #c8c8c8;
+    font-style: default;
+    height: 40px;
+    padding: 6px;
+    border-radius: 5px;
+}
+.ouvir-text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.box-captcha {
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px black;
+}
+.input-resposta {
+    width: 80%;
+    height: 40px;
+    background-color: transparent;
+    border: 0.5px solid white;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 12px;
+    color: white;
+    border-radius: 5px;
+    text-transform: uppercase;
+    margin-left: calc(50% - 169px);
 }
 .luna {
-  animation: walk-cycle 1.6s steps(12) infinite;
-  background: url(http://stash.rachelnabors.com/img/codepen/tuna_sprite.png) 0 0 no-repeat; 
-  height: 200px;
-  width: 400px;
+    animation: walk-cycle 1.6s steps(12) infinite;
+    background: url(http://stash.rachelnabors.com/img/codepen/tuna_sprite.png) 0 0 no-repeat; 
+    height: 200px;
+    width: 400px;
 }
-
-
 @keyframes walk-cycle {  
-  0% {background-position: 0 0; } 
-  100% {background-position: 0 -2391px; } 
+    0% {background-position: 0 0; } 
+    100% {background-position: 0 -2391px; } 
 }
 
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="info">
-    <p><span>BoxRoom:</span> Para concluir o seu login basta escutar o captcha e inserir o que foi pedido</p>
-</div>
 
+<html>
+    <head>
+        <link rel="shortcut icon" href="imagens/icons/favicon196x196.png" type="image/png">
+        <link rel="stylesheet" type="text/css" href="style/geral.css">
+        <title>BoxRoom - Captcha</title>
+        </head>
+    <body>
+        <a href="signin.php"><div class="previous-button"></div></a>
+        <div class="info">
+        <span>BoxRoom:</span> Para concluir o seu login basta escutar o captcha e inserir o que foi pedido.
+        </div>
 
-<div class="button start" style="border: none;">
-    <div class="luna"></div>
-    <i style="font-size:24px;color: #ff522b;" class="fa fa-play"></i> Ouvir Captcha</div>
+       <div class="space"></div>     
+       
+        <div class="gradient-border" style="width: 410px; height: auto; margin: auto; margin-bottom: 50">
+        <div class="luna"></div>
+        <div class="ouvir-text">OUVIR CAPTCHA</div><br>
+        <input type="text" name="" placeholder="RESPOSTA" class="input-resposta">
+        </div>
+        
+        
+        <div class="button" style="margin-left: calc(50% - 105px);">ENVIAR</div>
 
-<input type="tet" name=""class="input-capacha" placeholder="resposta">
-<div class=" button rerun hidden" style="
-    right: 194px;
-">Enviar</div><div class=" button rerun hidden">Voltar</div>
+        
+    </body>
+</html>

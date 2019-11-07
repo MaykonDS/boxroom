@@ -1,17 +1,24 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 body {
-  margin: auto;
   display: flex;
-  justify-content: center;
   background:#1D1F20;
+}
+#content-box {
+  display: flex;
+  margin: auto;
+  max-width: 80%;
+  min-width: 32%;
+  height: auto;
 }
 
 .login {
-  width: 400px;
-  margin-top: 10%;
+  max-width: 80%;
+  min-width: 32%;
   font-size: 16px;
+  margin-top: 10%;
   font-family: 'Raleway';
+  position: absolute;
 }
 
 .login-pesquisa,
@@ -103,19 +110,30 @@ body {
   background-size: 300% 300%;
 }
 
-.text-login {
-  margin-left: 92%; 
-  margin-top: 15px; 
-  position: absolute; 
-  color: white; 
-  font-family: 'Raleway'; 
-  cursor: pointer;
-  text-decoration: none;
-  border: 1px solid white;
-  padding: 6px;
-  border-radius: 8px;
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
-.text-login:hover {
+
+.previous-button {
+  background-image: url("../imagens/icons/previous.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 33px;
+  height: 33px;
+  margin-top: 15px; 
+  position: fixed;  
+  cursor: pointer;
+}
+.previous-button:hover {
   color: #8C8C8C;
   border-color: #8C8C8C;
+  opacity: .5;
 }
