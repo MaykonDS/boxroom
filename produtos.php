@@ -1,4 +1,36 @@
-<?php require('verify_session.php');?>
+<?php 
+require('verify_session.php');
+include "./php/menu-lateral.php";
+ 
+?>
+
+<style>
+	.box-content {
+		height: 70px;
+		width: auto;
+		transition-duration: .3s;
+		color: transparent;
+		overflow-y: hidden;
+	}
+	.box-item {
+		height: 70px;
+		width: auto;
+	}
+	.box-description {
+		height: 30px;
+		width: 100%;
+		text-align: center;
+		background-color: black;
+	}
+	.box-content:hover {
+		transition-duration: .3s;
+		color: white;
+		height: 100px;
+		overflow-y: visible;
+	}
+	
+</style>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +38,6 @@
     <title>Produtos</title>
     <?php include "./php/menu-lateral.php";?>
     <link rel='stylesheet' type='text/css' href='style/geral.css'>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/datatable.css">
 </head>
 <body>
 <!-- Menu Lateral-->
@@ -23,7 +53,6 @@
 	</div>
 </div><!--End Menu-->
 <div class="body-content">
-
 <!-- RELATORIO -->
 <div class="relatorio-container">
 
@@ -65,28 +94,8 @@
 	</tbody>
 </table>
 </div>
-<script type="text/javascript">
-$(document).ready(function () {
-$('#tabela').DataTable({
-	  "language": {
-            "lengthMenu": "Mostrar _MENU_ linhas",
-            "zeroRecords": "Nada Encontrado ;(",
-            "info": "Pagina _PAGE_ de _PAGES_",
-            "search": "Pesquisa:",
-            "infoEmpty": "Nenhum resultado encontrado",
-            "infoFiltered": "(use o filtro novamente)",
-             "paginate": {
-        "first":      "Primeiro",
-        "last":       "Ultimo",
-        "next":       "Proximo",
-        "previous":   "Antes"
-    }
-        }
-});
-});
-</script>
 
-
+<?php include "./php/data-table.php"; ?>
 
 </div>
 </body>

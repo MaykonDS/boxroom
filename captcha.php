@@ -19,7 +19,7 @@ body {
     font-size: 20px;
 }
 .button {
-    padding: 8px 66px;
+    padding: 6px;
     font-size: 26px;
     letter-spacing: 2px;
     cursor: pointer;
@@ -41,22 +41,17 @@ body {
     left: 40%;
     transform: translate(-50%, -50%);
 }
-span{
+span {
     color: #c6c6c6;
     font-weight: bold;
 }
 .ouvir-text {
-    margin-left: calc(50% - 86px);
-    font-size:23px;
-    color: #c8c8c8;
-    font-style: default;
-    height: 40px;
-    padding: 6px;
-    border-radius: 5px;
+    margin: auto;
+    width: 65px;
+    height: auto;
 }
 .ouvir-text:hover {
-    text-decoration: underline;
-    cursor: pointer;
+    color: #7E0000;
 }
 .box-captcha {
     border-radius: 10px;
@@ -80,6 +75,7 @@ span{
     background: url(http://stash.rachelnabors.com/img/codepen/tuna_sprite.png) 0 0 no-repeat; 
     height: 200px;
     width: 400px;
+    margin-bottom: 10px;
 }
 @keyframes walk-cycle {  
     0% {background-position: 0 0; } 
@@ -88,6 +84,12 @@ span{
 
 </style>
 
+<?php
+    include "config.php";
+    $select =   "SELECT cid, source FROM capcha ORDER BY RAND() limit 1";
+    $result_select = mysqli_query($con, $select);
+?>
+
 <html>
     <head>
         <link rel="shortcut icon" href="imagens/icons/favicon196x196.png" type="image/png">
@@ -95,7 +97,33 @@ span{
         <title>BoxRoom - Captcha</title>
         </head>
     <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <?php
+            if (isset($_POST['enviar'])) {
+                $cid = $_POST['audio_id'];
+                $resp = strtoupper($_POST['resposta']);
+                $query = "SELECT resposta FROM capcha WHERE cid = $cid AND resposta like '$resp'";
+                echo $query;
+                $result = mysqli_query($con, $query);
+                if (@mysqli_num_rows($result)>0){
+                    echo "TEM RESULTADOOOOO";
+                } else {
+                    echo "ERRROU";
+                }
+            }
+        ?>
+    
+    <form action="#" method="post">
+    <audio id="audio">
+  <?php   while ($coluna=mysqli_fetch_array($result_select)) {?>
+    <source src="<?= $coluna['source'] ?>" type="audio/mpeg">
+    <input type="hidden" value="<?=$coluna['cid']?>" name="audio_id">
+    Seu navegador não possui suporte ao elemento audio
+  <?php } ?>
+    </audio>
         <a href="signin.php"><div class="previous-button"></div></a>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <div class="info">
         <span>BoxRoom:</span> Para concluir o seu login basta escutar o captcha e inserir o que foi pedido.
         </div>
@@ -104,13 +132,45 @@ span{
        
         <div class="gradient-border" style="width: 410px; height: auto; margin: auto; margin-bottom: 50">
         <div class="luna"></div>
-        <div class="ouvir-text">OUVIR CAPTCHA</div><br>
-        <input type="text" name="" placeholder="RESPOSTA" class="input-resposta">
+        <div class="ouvir-text"><i style="font-size:24px;color: crimson; cursor: pointer; margin-right: 25px" class="fa fa-play" onclick="play()"></i><i class="fa fa-pause" style="font-size:24px;color: crimson; cursor: pointer" aria-hidden="true"  onclick="pause()"></i></div><br>
+        <input type="text" name="resposta" placeholder="RESPOSTA" class="input-resposta">
         </div>
-        
-        
-        <div class="button" style="margin-left: calc(50% - 105px);">ENVIAR</div>
-
-        
+        <input type="submit" value="ENVIAR" name="enviar" class="button" style="margin-left: calc(50% - 55px);" />
+        </form>
     </body>
 </html>
+
+<script>
+  
+    audio = document.getElementById('audio');
+ 
+    function play(){
+        audio.play();
+    }
+ 
+    function pause(){
+        audio.pause();
+    }
+ 
+    function stop(){
+        audio.pause();
+        audio.currentTime = 0;
+    }
+ 
+    function aumentar_volume(){
+        if( audio.volume < 1)  audio.volume += 0.1;
+    }
+ 
+    function diminuir_volume(){
+        if( audio.volume > 0)  audio.volume -= 0.1;
+    }
+         
+    function mute(){
+        if( audio.muted ){
+            audio.muted = false;
+        }else{
+            audio.muted = true;
+        }
+    }
+  
+</script>

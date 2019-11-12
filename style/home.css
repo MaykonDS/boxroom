@@ -11,7 +11,7 @@
 .home-menu-quickacess {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 80;
+    margin-top: 100;
     width: 85%;
     height: 160px;
     border-radius: 20px;
@@ -48,7 +48,7 @@ margin-bottom: 5px;
     cursor: pointer;
 }
 .home-menu-quickacess .card .card.card.card1:hover {
-    background: #a300ff;;
+    background: crimson;
 }
 .home-menu-quickacess .card .card.card1 .content img{
     max-width: 90px;
@@ -90,4 +90,20 @@ margin-bottom: 5px;
 .home-menu-quickacess .card .card .content a:hover{
     background: #333;
     color: #fff;
+}
+
+.box-alert {
+    width: 80%;
+    top: 20px;
+    left: 6%;
+    background-color: #141515;
+    border-radius: 7px;
+    color: rgb(164, 164, 164);
+    text-align: center;
+    padding: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    position: absolute;
+    display: none;
+    border: 1px solid crimson;
 }
