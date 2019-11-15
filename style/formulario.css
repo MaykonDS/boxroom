@@ -62,3 +62,64 @@ h3.title {
 .vertical {
     display: inline;
 }
+.header-formulario {
+  width: 100%;
+  color: #fff;
+  font-family: "Calibri";
+  font-weight: 100;
+  font-size: 22px;
+  text-align: center;
+  display: inline-flex;
+}
+.container-formulario {
+  width: 40%;
+  height: auto;
+  border-radius: 7px;
+  margin: auto;
+  margin-top: 70px;
+  padding-bottom: 50px;
+  background-color: #17191a;
+  justify-content: center;
+  display: flex;
+  box-shadow: 1px 4px 7px 1px #090909;
+}
+input.input {
+  margin-top: 15px;
+  height: 20px;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 1px;
+  border-style: solid;
+  border-color: #8c8c8c;
+  font-family: "Arial";
+  font-weight: 100;
+  color: white;
+}
+.input:hover {
+  border-color: #6a6a6a;
+}
+input.submit {
+  margin-top: 20px;
+  width: 100%;
+  background-color: crimson;
+  font-family: "Arial";
+  padding-top: 7px;
+  padding-bottom: 7px
+  font-weight: 100;
+  color: white;
+}
+.submit:hover {
+  background-color: #ae1836;
+  color: #D5D5D5;
+  cursor: pointer;
+}
+.campos {
+  margin-top: 15px;
+  width: 70%;
+  display: inline-block;
+}
+img.icon {
+  height: 17px;
+  width: 17px;
+  margin-left: 35%;
+}

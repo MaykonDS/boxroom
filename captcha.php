@@ -6,7 +6,7 @@
 }
 
 body {
-    user-select: none;  
+    user-select: none;
     font-family: 'Calibri';
     font-weight: 100;
     color: #c6c6c6;
@@ -72,14 +72,14 @@ span {
 }
 .luna {
     animation: walk-cycle 1.6s steps(12) infinite;
-    background: url(http://stash.rachelnabors.com/img/codepen/tuna_sprite.png) 0 0 no-repeat; 
+    background: url(http://stash.rachelnabors.com/img/codepen/tuna_sprite.png) 0 0 no-repeat;
     height: 200px;
     width: 400px;
     margin-bottom: 10px;
 }
-@keyframes walk-cycle {  
-    0% {background-position: 0 0; } 
-    100% {background-position: 0 -2391px; } 
+@keyframes walk-cycle {
+    0% {background-position: 0 0; }
+    100% {background-position: 0 -2391px; }
 }
 
 </style>
@@ -88,6 +88,10 @@ span {
     include "config.php";
     $select =   "SELECT cid, source FROM capcha ORDER BY RAND() limit 1";
     $result_select = mysqli_query($con, $select);
+
+    if (@$_SESSION['id_usuario']!=null){
+      header("Location: logout.php");
+    }
 ?>
 
 <html>
@@ -98,7 +102,7 @@ span {
         </head>
     <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    
+
     <?php
             if (isset($_POST['enviar'])) {
                 $cid = $_POST['audio_id'];
@@ -113,7 +117,7 @@ span {
                 }
             }
         ?>
-    
+
     <form action="#" method="post">
     <audio id="audio">
   <?php   while ($coluna=mysqli_fetch_array($result_select)) {?>
@@ -128,8 +132,8 @@ span {
         <span>BoxRoom:</span> Para concluir o seu login basta escutar o captcha e inserir o que foi pedido.
         </div>
 
-       <div class="space"></div>     
-       
+       <div class="space"></div>
+
         <div class="gradient-border" style="width: 410px; height: auto; margin: auto; margin-bottom: 50">
         <div class="luna"></div>
         <div class="ouvir-text"><i style="font-size:24px;color: crimson; cursor: pointer; margin-right: 25px" class="fa fa-play" onclick="play()"></i><i class="fa fa-pause" style="font-size:24px;color: crimson; cursor: pointer" aria-hidden="true"  onclick="pause()"></i></div><br>
@@ -141,30 +145,30 @@ span {
 </html>
 
 <script>
-  
+
     audio = document.getElementById('audio');
- 
+
     function play(){
         audio.play();
     }
- 
+
     function pause(){
         audio.pause();
     }
- 
+
     function stop(){
         audio.pause();
         audio.currentTime = 0;
     }
- 
+
     function aumentar_volume(){
         if( audio.volume < 1)  audio.volume += 0.1;
     }
- 
+
     function diminuir_volume(){
         if( audio.volume > 0)  audio.volume -= 0.1;
     }
-         
+
     function mute(){
         if( audio.muted ){
             audio.muted = false;
@@ -172,5 +176,5 @@ span {
             audio.muted = true;
         }
     }
-  
+
 </script>

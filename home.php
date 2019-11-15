@@ -1,7 +1,7 @@
-<?php 
+<?php
 require('verify_session.php');
 include "config.php";
-header('Content-type: text/html; charset=iso-8859-1');
+header('Content-type: text/html; charset=utf-8');
 ?>
 <html>
     <head>
@@ -11,19 +11,20 @@ header('Content-type: text/html; charset=iso-8859-1');
     <title>BoxRoom - Bem Vindo <?php $_SESSION["nome_usuario"]?></title>
     </head>
 <body>
-<!-- Menu Lateral-->
-<div class="menu-icon"></div>
-<div class="menu"><div class="menu-option"><h3>BoxRoom</h3></div>
-	<div class="menu-content" style="margin-left: -38px">
-	<ul>
-		<li class="navBar"><img class="menu-ico" title="Produtos" src="imagens/icons/shopping-cart.png"><div class="menu-option">Produtos</div></li>
-		<li class="navBar"><img class="menu-ico" title="Estoque" src="imagens/icons/box.png"><div class="menu-option">Estoque</div></li>
-		<li class="navBar"><img class="menu-ico" title="Vendas" src="imagens/icons/sales.png"><div class="menu-option">Vendas</div></li>
-		<li class="navBar"><img class="menu-ico" title="Fornecedor" src="imagens/icons/fornecedor.png"><div class="menu-option">Fornecedor</div></li>
-	</ul>
-	</div>
-</div>
-<!--End Menu-->
+  <!-- Menu Lateral-->
+  <div class="menu-icon"></div>
+  <div class="menu"><a href="home.php"><div class="menu-option"><h3>BoxRoom</h3></div></a>
+  <div class="menu-content" style="margin-left: -38px">
+  <ul>
+  <a href="produtos.php"><li class="navBar"><img class="menu-ico" title="Produtos" src="imagens/icons/shopping-cart.png"><div class="menu-option">Produtos</div></li></a>
+  <a href="estoque.php"><li class="navBar"><img class="menu-ico" title="Estoque" src="imagens/icons/box.png"><div class="menu-option">Estoque</div></li></a>
+  <a href="vendas.php"><li class="navBar"><img class="menu-ico" title="Vendas" src="imagens/icons/sales.png"><div class="menu-option">Vendas</div></li></a>
+  <a href="fornecedor.php"><li class="navBar"><img class="menu-ico" title="Fornecedor" src="imagens/icons/fornecedor.png"><div class="menu-option">Fornecedor</div></li></a>
+  <a href="logout.php"><li class="navBar logout"><img class="menu-ico" title="Sair" src="imagens/icons/logout.png"><div class="menu-option">Sair</div></li></a>
+  </ul>
+  </div>
+  </div>
+  <!--End Menu-->
 <div class="body-content">
 <a class="button-style1" href="logout.php"> LOGOUT</a>
 <?php
@@ -33,10 +34,10 @@ header('Content-type: text/html; charset=iso-8859-1');
                 WHERE $id_user = uid";
       $result = mysqli_query($con, $query);
       $coluna = mysqli_fetch_array($result);
-      
+
       if (mysqli_num_rows($result)>0){
           $id_comunicado = $coluna['comunicado_id'];
-          $query = "SELECT descricao FROM comunicados 
+          $query = "SELECT descricao FROM comunicados
                     WHERE $id_comunicado = comunicado_id";
           $result = mysqli_query($con, $query);
           $coluna = mysqli_fetch_array($result);
@@ -57,6 +58,7 @@ header('Content-type: text/html; charset=iso-8859-1');
         </div>
     </a>
         <!--Estoque-->
+      <a href="estoque.php">
         <div class="card">
             <div class="card card1">
                 <div class="content">
@@ -65,7 +67,9 @@ header('Content-type: text/html; charset=iso-8859-1');
                 </div>
             </div>
         </div>
+      </a>
         <!--Vendas-->
+      <a href="vendas.php">
         <div class="card">
             <div class="card card1">
                 <div class="content">
@@ -74,7 +78,9 @@ header('Content-type: text/html; charset=iso-8859-1');
                 </div>
             </div>
         </div>
+      </a>
         <!--Fornecedor-->
+      <a href="fornecedor.php">
         <div class="card">
             <div class="card card1">
                 <div class="content">
@@ -83,6 +89,7 @@ header('Content-type: text/html; charset=iso-8859-1');
                 </div>
             </div>
         </div>
+      </a>
 </div> <!--end home-menu-quickaccess-->
 </div> <!--end home-content-->
 
@@ -90,4 +97,3 @@ header('Content-type: text/html; charset=iso-8859-1');
 </html>
 
 <?php include "./php/menu-lateral.php";?>
-

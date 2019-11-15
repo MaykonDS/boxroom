@@ -128,12 +128,21 @@ body {
   background-size: 100%;
   width: 33px;
   height: 33px;
-  margin-top: 15px; 
-  position: fixed;  
+  margin-top: 15px;
+  position: fixed;
   cursor: pointer;
 }
 .previous-button:hover {
   color: #8C8C8C;
   border-color: #8C8C8C;
   opacity: .5;
+}
+.error-msg {
+  width: 100%;
+  text-align: center;
+  color: #f33;
+  font-family: "Calibri";
+}
+input.checkbox {
+  border: 0px;
 }

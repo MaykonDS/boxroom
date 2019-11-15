@@ -10,7 +10,7 @@ $(document).ready(function(){
   	if($('.menu-option').is(':hidden')){
   	$('.menu-option').delay(50).fadeToggle(10);
   } else {
-  	$('.menu-option').toggle();	
+  	$('.menu-option').toggle();
   }
   	$('.menu-icon').toggleClass('menu-icon-rotated');
   });

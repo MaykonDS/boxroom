@@ -1,6 +1,10 @@
-<?php 
+<?php
 include ('config.php');
 session_start(); //inicia a sessão
+if (@$_SESSION['id_usuario']!=null){
+  header("Location: logout.php");
+} else {
+}
 
 
 if (@$_REQUEST['botao']=="ENTRAR")
@@ -9,14 +13,14 @@ if (@$_REQUEST['botao']=="ENTRAR")
   $senha = md5($_POST['senha']);
 
   // COLOCAR EMAIL NO USUÁRIO E RETIRAR O CONTATO PQ É PARA FORNECEDOR
-  $query = "SELECT usuario.nome, usuario.uid, priv.nome as perm FROM usuario
-            INNER JOIN privilegios priv on usuario.setor_id = priv.prid
+  $query = "SELECT usuario.nome, usuario.uid, IF (is_admin=1,'admin','user') as perm FROM usuario
             WHERE usuario.email = '$email' AND usuario.senha = '$senha'";
 
   $result = mysqli_query($con,$query);
-
-  if (mysqli_num_rows($result)==0){
-    echo "ENTROU NO ERRO";
+  if (@mysqli_num_rows($result)==0){
+    $error = "Email ou senha inválidos!";
+  } else {
+    $error = "";
   }
   /*
   if (mysqli_num_rows($result)==0){
@@ -31,27 +35,25 @@ if (@$_REQUEST['botao']=="ENTRAR")
     <?php
   }
   */
-  while ($coluna=mysqli_fetch_array($result)) 
+  while (@$coluna=mysqli_fetch_array($result))
   {
-    $_SESSION["id_usuario"]= $coluna["uid"]; 
-    $_SESSION["nome_usuario"] = $coluna["nome"]; 
-    $_SESSION["UsuarioNivel"] = $coluna["perm"];
-    echo $coluna["perm"];
-    
+    $_SESSION["id_usuario"]= $coluna["uid"];
+    $_SESSION["nome_usuario"] = $coluna["nome"];
+    $_SESSION["is_admin"] = $coluna["perm"];
     // caso queira direcionar para páginas diferentes
     $niv = $coluna['perm'];
-    if($niv == "user"){ 
-      header("Location: home.php"); 
-      exit; 
+    if($niv == "user"){
+      header("Location: home.php");
+      exit;
     }
-    
-    if($niv == "admin"){ 
-      header("Location: relatorio_usuario.php");     
-      exit; 
+
+    if($niv == "admin"){
+      header("Location: relatorio_usuario.php");
+      exit;
     }
     // ----------------------------------------------
   }
-  
+
 }
 
 
@@ -81,7 +83,8 @@ if (@$_REQUEST['botao']=="ENTRAR")
     <form action="#" method="post">
     <p><input type="text" placeholder="Email" name="email"></p>
     <p><input type="password" placeholder="Senha" name="senha"></p>
-    <p><div class="error-msg"></div></p>
+    <p><div class="error-msg"><?=@$error;?></div></p>
+    <input type="checkbox" class="checkbox"></input>
     <p><input type="submit" name="botao" value="ENTRAR"></p>
   </form>
 </div>
