@@ -134,6 +134,20 @@ li:hover{
 .menu-ico.fornecedor:hover {
 	background-image: url('../imagens/icons/fornecedor-active.png');
 }
+.menu-ico.usuarios {
+	background-image: url('../imagens/icons/usuarios.png');
+	background-size: 100%;
+}
+.menu-ico.usuarios:hover {
+	background-image: url('../imagens/icons/usuarios-active.png');
+}
+.menu-ico.comunicados {
+	background-image: url('../imagens/icons/alarm.png');
+	background-size: 100%;
+}
+.menu-ico.comunicados:hover {
+	background-image: url('../imagens/icons/alarm-active.png');
+}
 .menu-ico.logout {
 	background-image: url('../imagens/icons/logout.png');
 	background-size: 100%;

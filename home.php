@@ -2,6 +2,13 @@
 require('verify_session.php');
 include "config.php";
 header('Content-type: text/html; charset=utf-8');
+
+  $perm = $_SESSION['is_admin'];
+  $display = "none";
+  IF ($perm=='admin') {
+    $display = "";
+  }
+
 ?>
 <html>
     <head>
@@ -78,7 +85,7 @@ header('Content-type: text/html; charset=utf-8');
       </a>
       <!--Comunicados-->
     <a href="comunicados.php">
-      <div class="card">
+      <div class="card" style="display: <?=$display?>">
           <div class="card card1">
               <div class="content">
                   <img src="imagens/icons/alarm.png" style="margin-left:17px">
@@ -88,7 +95,7 @@ header('Content-type: text/html; charset=utf-8');
       </div>
     </a>
     <a href="usuarios.php">
-      <div class="card">
+      <div class="card" style="display: <?=$display?>">
           <div class="card card1">
               <div class="content">
                   <img src="imagens/icons/usuarios.png">

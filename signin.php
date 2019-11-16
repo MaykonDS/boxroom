@@ -47,7 +47,7 @@ if (@$_REQUEST['botao']=="ENTRAR")
     }
 
     if($niv == "admin"){
-      header("Location: relatorio_usuario.php");
+      header("Location: home.php");
       exit;
     }
     // ----------------------------------------------
