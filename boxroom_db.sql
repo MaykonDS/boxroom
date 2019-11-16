@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: 15-Nov-2019 às 00:21
--- Versão do servidor: 5.7.19
--- PHP Version: 5.6.31
+-- Host: 127.0.0.1
+-- Tempo de geraÃ§Ã£o: 16-Nov-2019 Ã s 15:47
+-- VersÃ£o do servidor: 10.4.6-MariaDB
+-- versÃ£o do PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `boxroom`
+-- Banco de dados: `boxroom`
 --
 CREATE DATABASE IF NOT EXISTS `boxroom` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `boxroom`;
@@ -30,13 +30,11 @@ USE `boxroom`;
 -- Estrutura da tabela `capcha`
 --
 
-DROP TABLE IF EXISTS `capcha`;
-CREATE TABLE IF NOT EXISTS `capcha` (
-  `cid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `capcha` (
+  `cid` int(11) NOT NULL,
   `source` varchar(60) NOT NULL,
-  `resposta` varchar(40) NOT NULL,
-  PRIMARY KEY (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `resposta` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `capcha`
@@ -54,22 +52,19 @@ INSERT INTO `capcha` (`cid`, `source`, `resposta`) VALUES
 -- Estrutura da tabela `comunicados`
 --
 
-DROP TABLE IF EXISTS `comunicados`;
-CREATE TABLE IF NOT EXISTS `comunicados` (
-  `comunicado_id` int(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `comunicados` (
+  `comunicado_id` int(3) NOT NULL,
   `descricao` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `data_finalizacao` date NOT NULL,
-  `setor_sid` int(11) NOT NULL,
-  PRIMARY KEY (`comunicado_id`),
-  KEY `setor_sid` (`setor_sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `setor_sid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `comunicados`
 --
 
 INSERT INTO `comunicados` (`comunicado_id`, `descricao`, `data_finalizacao`, `setor_sid`) VALUES
-(1, 'Atenção! A BoxRoom virou uma empresa relativa a ela mesma. Não oferecemos mais serviços externos.', '2019-11-16', 2);
+(1, 'AtenÃ§Ã£o! A BoxRoom virou uma empresa relativa a ela mesma. NÃ£o oferecemos mais serviÃ§os externos.', '2019-11-16', 2);
 
 -- --------------------------------------------------------
 
@@ -77,14 +72,12 @@ INSERT INTO `comunicados` (`comunicado_id`, `descricao`, `data_finalizacao`, `se
 -- Estrutura da tabela `contato`
 --
 
-DROP TABLE IF EXISTS `contato`;
-CREATE TABLE IF NOT EXISTS `contato` (
-  `cid` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
+CREATE TABLE `contato` (
+  `cid` int(11) NOT NULL,
+  `email` varchar(45) COLLATE utf8mb4_bin NOT NULL,
   `telefone` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `responsavel` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `responsavel` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -92,15 +85,13 @@ CREATE TABLE IF NOT EXISTS `contato` (
 -- Estrutura da tabela `estoque`
 --
 
-DROP TABLE IF EXISTS `estoque`;
-CREATE TABLE IF NOT EXISTS `estoque` (
-  `eid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `estoque` (
+  `eid` int(11) NOT NULL,
   `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL,
   `desc` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `endereco` text COLLATE utf8mb4_bin,
-  `ativo` tinyint(1) DEFAULT '1',
-  PRIMARY KEY (`eid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `endereco` text COLLATE utf8mb4_bin NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Extraindo dados da tabela `estoque`
@@ -116,13 +107,10 @@ INSERT INTO `estoque` (`eid`, `nome`, `desc`, `endereco`, `ativo`) VALUES
 -- Estrutura da tabela `estoque_fornecedor`
 --
 
-DROP TABLE IF EXISTS `estoque_fornecedor`;
-CREATE TABLE IF NOT EXISTS `estoque_fornecedor` (
+CREATE TABLE `estoque_fornecedor` (
   `efid` int(11) NOT NULL,
   `estoque_id` int(11) NOT NULL,
-  `fornecedor_id` int(11) NOT NULL,
-  KEY `fornecedor_id` (`fornecedor_id`),
-  KEY `estoque_id` (`estoque_id`)
+  `fornecedor_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -131,20 +119,15 @@ CREATE TABLE IF NOT EXISTS `estoque_fornecedor` (
 -- Estrutura da tabela `estoque_produto`
 --
 
-DROP TABLE IF EXISTS `estoque_produto`;
-CREATE TABLE IF NOT EXISTS `estoque_produto` (
-  `epid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `estoque_produto` (
+  `epid` int(11) NOT NULL,
   `pid` int(11) DEFAULT NULL,
-  `eid` int(11) DEFAULT NULL,
-  `quant` int(11) DEFAULT NULL,
-  `quant_max` int(11) DEFAULT NULL,
-  `quant_min` int(11) DEFAULT NULL,
-  `quant_alert` int(11) DEFAULT NULL,
-  `uid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`epid`),
-  KEY `pid` (`pid`),
-  KEY `eid` (`eid`),
-  KEY `uid` (`uid`)
+  `eid` int(11) NOT NULL,
+  `quant` int(11) NOT NULL,
+  `quant_max` int(11) NOT NULL,
+  `quant_min` int(11) NOT NULL,
+  `quant_alert` int(11) NOT NULL,
+  `uid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -153,12 +136,10 @@ CREATE TABLE IF NOT EXISTS `estoque_produto` (
 -- Estrutura da tabela `forma_pagamento`
 --
 
-DROP TABLE IF EXISTS `forma_pagamento`;
-CREATE TABLE IF NOT EXISTS `forma_pagamento` (
-  `fpid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `quant_parcela` int(11) DEFAULT NULL,
-  PRIMARY KEY (`fpid`)
+CREATE TABLE `forma_pagamento` (
+  `fpid` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL,
+  `quant_parcela` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -167,17 +148,13 @@ CREATE TABLE IF NOT EXISTS `forma_pagamento` (
 -- Estrutura da tabela `fornecedor`
 --
 
-DROP TABLE IF EXISTS `fornecedor`;
-CREATE TABLE IF NOT EXISTS `fornecedor` (
-  `fid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
+CREATE TABLE `fornecedor` (
+  `fid` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL,
   `nome_fant` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `cnpj-cpf` varchar(19) COLLATE utf8mb4_bin DEFAULT NULL,
-  `tipo_pessoa` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `contato_id` int(11) NOT NULL,
-  PRIMARY KEY (`fid`),
-  UNIQUE KEY `fid_UNIQUE` (`fid`),
-  KEY `contato_id` (`contato_id`)
+  `cnpj-cpf` varchar(19) COLLATE utf8mb4_bin NOT NULL,
+  `tipo_pessoa` char(1) COLLATE utf8mb4_bin NOT NULL,
+  `contato_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -186,16 +163,12 @@ CREATE TABLE IF NOT EXISTS `fornecedor` (
 -- Estrutura da tabela `ingredientes`
 --
 
-DROP TABLE IF EXISTS `ingredientes`;
-CREATE TABLE IF NOT EXISTS `ingredientes` (
-  `iid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ingredientes` (
+  `iid` int(11) NOT NULL,
   `nome` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `validade` datetime NOT NULL,
   `tid` int(11) NOT NULL,
-  `iuid` int(11) NOT NULL,
-  PRIMARY KEY (`iid`),
-  KEY `tid` (`tid`),
-  KEY `iuid` (`iuid`)
+  `iuid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -204,16 +177,11 @@ CREATE TABLE IF NOT EXISTS `ingredientes` (
 -- Estrutura da tabela `item_venda`
 --
 
-DROP TABLE IF EXISTS `item_venda`;
-CREATE TABLE IF NOT EXISTS `item_venda` (
-  `ivid` int(11) NOT NULL AUTO_INCREMENT,
-  `epid` int(11) DEFAULT NULL,
-  `vid` int(11) DEFAULT NULL,
-  `quant` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ivid`),
-  UNIQUE KEY `ivid_UNIQUE` (`ivid`),
-  KEY `epid` (`epid`),
-  KEY `vid` (`vid`)
+CREATE TABLE `item_venda` (
+  `ivid` int(11) NOT NULL,
+  `epid` int(11) NOT NULL,
+  `vid` int(11) NOT NULL,
+  `quant` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -222,11 +190,9 @@ CREATE TABLE IF NOT EXISTS `item_venda` (
 -- Estrutura da tabela `localicazao`
 --
 
-DROP TABLE IF EXISTS `localicazao`;
-CREATE TABLE IF NOT EXISTS `localicazao` (
-  `localizacao_id` int(3) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`localizacao_id`)
+CREATE TABLE `localicazao` (
+  `localizacao_id` int(3) NOT NULL,
+  `nome` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -235,17 +201,13 @@ CREATE TABLE IF NOT EXISTS `localicazao` (
 -- Estrutura da tabela `movimentacao_estoque`
 --
 
-DROP TABLE IF EXISTS `movimentacao_estoque`;
-CREATE TABLE IF NOT EXISTS `movimentacao_estoque` (
-  `meid` int(11) NOT NULL AUTO_INCREMENT,
-  `quant` int(11) DEFAULT NULL,
-  `smid` int(11) DEFAULT NULL,
+CREATE TABLE `movimentacao_estoque` (
+  `meid` int(11) NOT NULL,
+  `quant` int(11) NOT NULL,
+  `smid` int(11) NOT NULL,
   `estoque_produto_id` int(11) NOT NULL,
-  `data_mov` datetime DEFAULT NULL,
-  `tipo` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`meid`),
-  KEY `smid` (`smid`),
-  KEY `estoque_produto_id` (`estoque_produto_id`)
+  `data_mov` datetime NOT NULL,
+  `tipo` char(1) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -254,21 +216,16 @@ CREATE TABLE IF NOT EXISTS `movimentacao_estoque` (
 -- Estrutura da tabela `produto`
 --
 
-DROP TABLE IF EXISTS `produto`;
-CREATE TABLE IF NOT EXISTS `produto` (
-  `pid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
+CREATE TABLE `produto` (
+  `pid` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL,
   `data_entrega` datetime DEFAULT NULL,
   `data_validade` datetime DEFAULT NULL,
-  `iid` int(11) DEFAULT '0',
+  `iid` int(11) DEFAULT 0,
   `desc_produto` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `quant` int(11) DEFAULT '0',
+  `quant` int(11) NOT NULL DEFAULT 0,
   `status` char(1) COLLATE utf8mb4_bin DEFAULT 'S',
-  `tid` int(11) NOT NULL,
-  PRIMARY KEY (`pid`),
-  UNIQUE KEY `pid_UNIQUE` (`pid`),
-  KEY `iid` (`iid`),
-  KEY `tid` (`tid`)
+  `tid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -277,16 +234,12 @@ CREATE TABLE IF NOT EXISTS `produto` (
 -- Estrutura da tabela `produto_unidade`
 --
 
-DROP TABLE IF EXISTS `produto_unidade`;
-CREATE TABLE IF NOT EXISTS `produto_unidade` (
-  `puid` int(11) NOT NULL AUTO_INCREMENT,
-  `pid` int(11) DEFAULT '0',
-  `uid` int(11) DEFAULT '0',
-  `quant` int(11) DEFAULT '0',
-  PRIMARY KEY (`puid`),
-  KEY `pid` (`pid`),
-  KEY `uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+CREATE TABLE `produto_unidade` (
+  `puid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL DEFAULT 0,
+  `uid` int(11) NOT NULL DEFAULT 0,
+  `quant` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -294,14 +247,11 @@ CREATE TABLE IF NOT EXISTS `produto_unidade` (
 -- Estrutura da tabela `setor`
 --
 
-DROP TABLE IF EXISTS `setor`;
-CREATE TABLE IF NOT EXISTS `setor` (
-  `sid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `privilegios_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`sid`),
-  KEY `prid` (`privilegios_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+CREATE TABLE `setor` (
+  `sid` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL,
+  `privilegios_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Extraindo dados da tabela `setor`
@@ -317,11 +267,9 @@ INSERT INTO `setor` (`sid`, `nome`, `privilegios_id`) VALUES
 -- Estrutura da tabela `status_movimentacao`
 --
 
-DROP TABLE IF EXISTS `status_movimentacao`;
-CREATE TABLE IF NOT EXISTS `status_movimentacao` (
-  `smid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`smid`)
+CREATE TABLE `status_movimentacao` (
+  `smid` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -330,11 +278,9 @@ CREATE TABLE IF NOT EXISTS `status_movimentacao` (
 -- Estrutura da tabela `tipo`
 --
 
-DROP TABLE IF EXISTS `tipo`;
-CREATE TABLE IF NOT EXISTS `tipo` (
-  `tid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(25) COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`tid`)
+CREATE TABLE `tipo` (
+  `tid` int(11) NOT NULL,
+  `nome` varchar(25) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -343,12 +289,9 @@ CREATE TABLE IF NOT EXISTS `tipo` (
 -- Estrutura da tabela `unidade_comercial`
 --
 
-DROP TABLE IF EXISTS `unidade_comercial`;
-CREATE TABLE IF NOT EXISTS `unidade_comercial` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  PRIMARY KEY (`uid`),
-  UNIQUE KEY `uid_UNIQUE` (`uid`)
+CREATE TABLE `unidade_comercial` (
+  `uid` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -357,17 +300,14 @@ CREATE TABLE IF NOT EXISTS `unidade_comercial` (
 -- Estrutura da tabela `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `email` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `senha` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
+CREATE TABLE `usuario` (
+  `uid` int(11) NOT NULL,
+  `nome` varchar(45) COLLATE utf8mb4_bin NOT NULL,
+  `email` varchar(45) COLLATE utf8mb4_bin NOT NULL,
+  `senha` varchar(45) COLLATE utf8mb4_bin NOT NULL,
   `sexo` char(1) COLLATE utf8mb4_bin DEFAULT NULL,
-  `setor_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`uid`),
-  KEY `sid` (`setor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `setor_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -383,25 +323,283 @@ INSERT INTO `usuario` (`uid`, `nome`, `email`, `senha`, `sexo`, `setor_id`) VALU
 -- Estrutura da tabela `venda`
 --
 
-DROP TABLE IF EXISTS `venda`;
-CREATE TABLE IF NOT EXISTS `venda` (
-  `vid` int(11) NOT NULL AUTO_INCREMENT,
-  `pid` int(11) DEFAULT NULL,
-  `venda_status` varchar(45) COLLATE utf8mb4_bin DEFAULT NULL,
-  `ivid` int(11) DEFAULT NULL,
-  `data_venda` datetime DEFAULT NULL,
-  `uid` int(11) DEFAULT NULL,
-  `fpid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`vid`),
-  UNIQUE KEY `vid_UNIQUE` (`vid`),
-  KEY `pid` (`pid`),
-  KEY `ivid` (`ivid`),
-  KEY `uid` (`uid`),
-  KEY `fpid` (`fpid`)
+CREATE TABLE `venda` (
+  `vid` int(11) NOT NULL,
+  `venda_status` varchar(45) COLLATE utf8mb4_bin NOT NULL,
+  `data_venda` datetime NOT NULL,
+  `uid` int(11) NOT NULL,
+  `fpid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Constraints for dumped tables
+-- Ãndices para tabelas despejadas
+--
+
+--
+-- Ãndices para tabela `capcha`
+--
+ALTER TABLE `capcha`
+  ADD PRIMARY KEY (`cid`);
+
+--
+-- Ãndices para tabela `comunicados`
+--
+ALTER TABLE `comunicados`
+  ADD PRIMARY KEY (`comunicado_id`),
+  ADD KEY `setor_sid` (`setor_sid`);
+
+--
+-- Ãndices para tabela `contato`
+--
+ALTER TABLE `contato`
+  ADD PRIMARY KEY (`cid`);
+
+--
+-- Ãndices para tabela `estoque`
+--
+ALTER TABLE `estoque`
+  ADD PRIMARY KEY (`eid`);
+
+--
+-- Ãndices para tabela `estoque_fornecedor`
+--
+ALTER TABLE `estoque_fornecedor`
+  ADD KEY `fornecedor_id` (`fornecedor_id`),
+  ADD KEY `estoque_id` (`estoque_id`);
+
+--
+-- Ãndices para tabela `estoque_produto`
+--
+ALTER TABLE `estoque_produto`
+  ADD PRIMARY KEY (`epid`),
+  ADD KEY `pid` (`pid`),
+  ADD KEY `eid` (`eid`),
+  ADD KEY `uid` (`uid`);
+
+--
+-- Ãndices para tabela `forma_pagamento`
+--
+ALTER TABLE `forma_pagamento`
+  ADD PRIMARY KEY (`fpid`);
+
+--
+-- Ãndices para tabela `fornecedor`
+--
+ALTER TABLE `fornecedor`
+  ADD PRIMARY KEY (`fid`),
+  ADD UNIQUE KEY `fid_UNIQUE` (`fid`),
+  ADD KEY `contato_id` (`contato_id`);
+
+--
+-- Ãndices para tabela `ingredientes`
+--
+ALTER TABLE `ingredientes`
+  ADD PRIMARY KEY (`iid`),
+  ADD KEY `tid` (`tid`),
+  ADD KEY `iuid` (`iuid`);
+
+--
+-- Ãndices para tabela `item_venda`
+--
+ALTER TABLE `item_venda`
+  ADD PRIMARY KEY (`ivid`),
+  ADD UNIQUE KEY `ivid_UNIQUE` (`ivid`),
+  ADD KEY `epid` (`epid`),
+  ADD KEY `vid` (`vid`);
+
+--
+-- Ãndices para tabela `localicazao`
+--
+ALTER TABLE `localicazao`
+  ADD PRIMARY KEY (`localizacao_id`);
+
+--
+-- Ãndices para tabela `movimentacao_estoque`
+--
+ALTER TABLE `movimentacao_estoque`
+  ADD PRIMARY KEY (`meid`),
+  ADD KEY `smid` (`smid`),
+  ADD KEY `estoque_produto_id` (`estoque_produto_id`);
+
+--
+-- Ãndices para tabela `produto`
+--
+ALTER TABLE `produto`
+  ADD PRIMARY KEY (`pid`),
+  ADD UNIQUE KEY `pid_UNIQUE` (`pid`),
+  ADD KEY `iid` (`iid`),
+  ADD KEY `tid` (`tid`);
+
+--
+-- Ãndices para tabela `produto_unidade`
+--
+ALTER TABLE `produto_unidade`
+  ADD PRIMARY KEY (`puid`),
+  ADD KEY `pid` (`pid`),
+  ADD KEY `uid` (`uid`);
+
+--
+-- Ãndices para tabela `setor`
+--
+ALTER TABLE `setor`
+  ADD PRIMARY KEY (`sid`),
+  ADD KEY `prid` (`privilegios_id`);
+
+--
+-- Ãndices para tabela `status_movimentacao`
+--
+ALTER TABLE `status_movimentacao`
+  ADD PRIMARY KEY (`smid`);
+
+--
+-- Ãndices para tabela `tipo`
+--
+ALTER TABLE `tipo`
+  ADD PRIMARY KEY (`tid`);
+
+--
+-- Ãndices para tabela `unidade_comercial`
+--
+ALTER TABLE `unidade_comercial`
+  ADD PRIMARY KEY (`uid`),
+  ADD UNIQUE KEY `uid_UNIQUE` (`uid`);
+
+--
+-- Ãndices para tabela `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `sid` (`setor_id`);
+
+--
+-- Ãndices para tabela `venda`
+--
+ALTER TABLE `venda`
+  ADD PRIMARY KEY (`vid`),
+  ADD UNIQUE KEY `vid_UNIQUE` (`vid`),
+  ADD KEY `uid` (`uid`),
+  ADD KEY `fpid` (`fpid`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `capcha`
+--
+ALTER TABLE `capcha`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `comunicados`
+--
+ALTER TABLE `comunicados`
+  MODIFY `comunicado_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `contato`
+--
+ALTER TABLE `contato`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `estoque`
+--
+ALTER TABLE `estoque`
+  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `estoque_produto`
+--
+ALTER TABLE `estoque_produto`
+  MODIFY `epid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `forma_pagamento`
+--
+ALTER TABLE `forma_pagamento`
+  MODIFY `fpid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `fornecedor`
+--
+ALTER TABLE `fornecedor`
+  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `ingredientes`
+--
+ALTER TABLE `ingredientes`
+  MODIFY `iid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `item_venda`
+--
+ALTER TABLE `item_venda`
+  MODIFY `ivid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `localicazao`
+--
+ALTER TABLE `localicazao`
+  MODIFY `localizacao_id` int(3) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `movimentacao_estoque`
+--
+ALTER TABLE `movimentacao_estoque`
+  MODIFY `meid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `produto`
+--
+ALTER TABLE `produto`
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `produto_unidade`
+--
+ALTER TABLE `produto_unidade`
+  MODIFY `puid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `setor`
+--
+ALTER TABLE `setor`
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `status_movimentacao`
+--
+ALTER TABLE `status_movimentacao`
+  MODIFY `smid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `tipo`
+--
+ALTER TABLE `tipo`
+  MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `unidade_comercial`
+--
+ALTER TABLE `unidade_comercial`
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `venda`
+--
+ALTER TABLE `venda`
+  MODIFY `vid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- RestriÃ§Ãµes para despejos de tabelas
 --
 
 --
@@ -464,15 +662,6 @@ ALTER TABLE `produto_unidade`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`setor_id`) REFERENCES `setor` (`sid`);
-
---
--- Limitadores para a tabela `venda`
---
-ALTER TABLE `venda`
-  ADD CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `produto` (`pid`),
-  ADD CONSTRAINT `venda_ibfk_2` FOREIGN KEY (`ivid`) REFERENCES `item_venda` (`ivid`),
-  ADD CONSTRAINT `venda_ibfk_3` FOREIGN KEY (`uid`) REFERENCES `usuario` (`uid`),
-  ADD CONSTRAINT `venda_ibfk_4` FOREIGN KEY (`fpid`) REFERENCES `forma_pagamento` (`fpid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
