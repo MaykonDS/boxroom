@@ -1,11 +1,10 @@
 <?php
 include ('config.php');
 session_start(); //inicia a sessão
+
 if (@$_SESSION['id_usuario']!=null){
   header("Location: logout.php");
-} else {
 }
-
 
 if (@$_REQUEST['botao']=="ENTRAR")
 {

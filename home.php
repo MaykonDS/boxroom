@@ -11,22 +11,8 @@ header('Content-type: text/html; charset=utf-8');
     <title>BoxRoom - Bem Vindo <?php $_SESSION["nome_usuario"]?></title>
     </head>
 <body>
-  <!-- Menu Lateral-->
-  <div class="menu-icon"></div>
-  <div class="menu"><a href="home.php"><div class="menu-option"><h3>BoxRoom</h3></div></a>
-  <div class="menu-content" style="margin-left: -38px">
-  <ul>
-  <a href="produtos.php"><li class="navBar"><img class="menu-ico" title="Produtos" src="imagens/icons/shopping-cart.png"><div class="menu-option">Produtos</div></li></a>
-  <a href="estoque.php"><li class="navBar"><img class="menu-ico" title="Estoque" src="imagens/icons/box.png"><div class="menu-option">Estoque</div></li></a>
-  <a href="vendas.php"><li class="navBar"><img class="menu-ico" title="Vendas" src="imagens/icons/sales.png"><div class="menu-option">Vendas</div></li></a>
-  <a href="fornecedor.php"><li class="navBar"><img class="menu-ico" title="Fornecedor" src="imagens/icons/fornecedor.png"><div class="menu-option">Fornecedor</div></li></a>
-  <a href="logout.php"><li class="navBar logout"><img class="menu-ico" title="Sair" src="imagens/icons/logout.png"><div class="menu-option">Sair</div></li></a>
-  </ul>
-  </div>
-  </div>
-  <!--End Menu-->
+<?php include "./php/menu-lateral.php"; ?>
 <div class="body-content">
-<a class="button-style1" href="logout.php"> LOGOUT</a>
 <?php
       $id_user = $_SESSION['id_usuario'];
       $query = "SELECT comunicado_id FROM usuario
@@ -90,10 +76,29 @@ header('Content-type: text/html; charset=utf-8');
             </div>
         </div>
       </a>
+      <!--Comunicados-->
+    <a href="comunicados.php">
+      <div class="card">
+          <div class="card card1">
+              <div class="content">
+                  <img src="imagens/icons/alarm.png" style="margin-left:17px">
+                  <h3>Comunicados</h3>
+              </div>
+          </div>
+      </div>
+    </a>
+    <a href="usuarios.php">
+      <div class="card">
+          <div class="card card1">
+              <div class="content">
+                  <img src="imagens/icons/usuarios.png">
+                  <h3>Usuários</h3>
+              </div>
+          </div>
+      </div>
+    </a>
 </div> <!--end home-menu-quickaccess-->
 </div> <!--end home-content-->
 
 </body>
 </html>
-
-<?php include "./php/menu-lateral.php";?>

@@ -53,12 +53,16 @@ a {
 .menu-option {
 	color: white;
     position: absolute;
-    margin-left: 120px;
+    margin-left: 110px;
     font-size: 18;
-    margin-top: 0px;
+    margin-top: 5px;
     font-family: 'calibri';
     font-weight: 100;
     display: none;
+}
+.menu-option.h3 {
+	margin-left: 129px;
+	margin-top: 0;
 }
 /*Lista*/
 .navBar {
@@ -85,7 +89,7 @@ a {
 /*Hover da lista*/
 li:hover{
   transition-duration: .3s;
-	background-color: crimson;
+	background-color: #020202;
 	cursor: pointer;
 }
 /*Efeito da rotação do menu icon*/
@@ -101,6 +105,41 @@ li:hover{
 	float: left;
 	margin-top: -3px;
 	margin-left: 20px;
+}
+.menu-ico.produtos {
+	background-image: url('../imagens/icons/shopping-cart.png');
+	background-size: 100%;
+}
+.menu-ico.produtos:hover {
+	background-image: url('../imagens/icons/shopping-cart-active.png');
+}
+.menu-ico.estoque {
+	background-image: url('../imagens/icons/box.png');
+	background-size: 100%;
+}
+.menu-ico.estoque:hover {
+	background-image: url('../imagens/icons/box-active.png');
+}
+.menu-ico.vendas {
+	background-image: url('../imagens/icons/sales.png');
+	background-size: 100%;
+}
+.menu-ico.vendas:hover {
+	background-image: url('../imagens/icons/sales-active.png');
+}
+.menu-ico.fornecedor {
+	background-image: url('../imagens/icons/fornecedor.png');
+	background-size: 100%;
+}
+.menu-ico.fornecedor:hover {
+	background-image: url('../imagens/icons/fornecedor-active.png');
+}
+.menu-ico.logout {
+	background-image: url('../imagens/icons/logout.png');
+	background-size: 100%;
+}
+.menu-ico.logout:hover {
+	background-image: url('../imagens/icons/logout-active.png');
 }
 
 .button-style1 {

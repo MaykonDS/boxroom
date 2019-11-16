@@ -1,6 +1,5 @@
 <?php
 require('verify_session.php');
-include "./php/menu-lateral.php";
 ?>
 
 <style>
@@ -38,20 +37,7 @@ include "./php/menu-lateral.php";
     <link rel='stylesheet' type='text/css' href='style/geral.css'>
 </head>
 <body>
-	<!-- Menu Lateral-->
-	<div class="menu-icon"></div>
-	<div class="menu"><a href="home.php"><div class="menu-option"><h3>BoxRoom</h3></div></a>
-	<div class="menu-content" style="margin-left: -38px">
-	<ul>
-	<a href="produtos.php"><li class="navBar"><img class="menu-ico" title="Produtos" src="imagens/icons/shopping-cart.png"><div class="menu-option">Produtos</div></li></a>
-	<a href="estoque.php"><li class="navBar"><img class="menu-ico" title="Estoque" src="imagens/icons/box.png"><div class="menu-option">Estoque</div></li></a>
-	<a href="vendas.php"><li class="navBar"><img class="menu-ico" title="Vendas" src="imagens/icons/sales.png"><div class="menu-option">Vendas</div></li></a>
-	<a href="fornecedor.php"><li class="navBar"><img class="menu-ico" title="Fornecedor" src="imagens/icons/fornecedor.png"><div class="menu-option">Fornecedor</div></li></a>
-	<a href="logout.php"><li class="navBar logout"><img class="menu-ico" title="Sair" src="imagens/icons/logout.png"><div class="menu-option">Sair</div></li></a>
-	</ul>
-	</div>
-	</div>
-	<!--End Menu-->
+<?php include "./php/menu-lateral.php"; ?>
 <div class="body-content">
 <!-- RELATORIO -->
 <div class="relatorio-container">

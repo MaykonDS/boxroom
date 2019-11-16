@@ -10,7 +10,8 @@ h3.title {
 }
 .container-top {
     width: 90%;
-    background-color: #111313;
+    background-color: #161718;
+    box-shadow: 1px 1px 4px 2px #0f0f0f;
     height: 25px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -70,6 +71,10 @@ h3.title {
   font-size: 22px;
   text-align: center;
   display: inline-flex;
+  margin-bottom:20px;
+}
+.header-formulario .title {
+  margin-left: 30%;
 }
 .container-formulario {
   width: 40%;
@@ -117,6 +122,25 @@ input.submit {
   margin-top: 15px;
   width: 70%;
   display: inline-block;
+}
+.info {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: "Calibri";
+  text-align: left;
+}
+.info .title{
+  color: crimson;
+  font-size: 14px;
+}
+.info .separetor{
+  width: 100%;
+  height: 12px;
+}
+.info .content {
+  color: whitesmoke;
+  font-size: 18px;
 }
 img.icon {
   height: 17px;
