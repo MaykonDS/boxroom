@@ -16,11 +16,21 @@
       $qtd = $_POST['qtd'];
       $desc = $_POST['desc'];
       $tipo = $_POST['tipo'];
+      $unidade = $_POST['unidade'];
 
       $query = "INSERT INTO `produto` (`nome`, `data_entrega`, `data_validade`, `ingredientes_id`, `desc_produto`, `quant`, `ativo`, `tipo_id`)
                 VALUES ('$nome', '$dat_entrega', '$dat_venc', NULL, '$desc', '$qtd', 1, '$tipo')";
       if (mysqli_query($con, $query)){
-        header("Location: produtos.php");
+        $new_pid = mysqli_insert_id($con);
+        $query = "INSERT INTO produto_unidade (produto_id, unidade_id, quant) VALUES ('$new_pid','$unidade','$qtd')";
+        if (mysqli_query($con, $query)){
+          header("Location: produtos.php");
+        } else {
+          echo $new_pid;
+          $error = "Não foi possível cadastrar a unidade do produto!";
+          $locale = "produtos.php";
+          //ader("Location: error.php?error_msg=$error&locale=$locale");
+        }
       } else {
         $error = "Não foi possível cadastrar o produto!";
         $locale = "produtos.php";
@@ -35,10 +45,18 @@
       $qtd = $_POST['qtd'];
       $desc = $_POST['desc'];
       $tipo = $_POST['tipo'];
+      $unidade = $_POST['unidade'];
 
       $query = "UPDATE produto SET nome='$nome', data_entrega='$dat_entrega', data_validade='$dat_venc', desc_produto='$desc', quant='$qtd' , tipo_id='$tipo' WHERE pid='$pid'";
       if (mysqli_query($con, $query)){
-        header("Location: produtos.php");
+        $query = "UPDATE INTO produto_unidade (unidade_id, quant) VALUES ('$unidade','$qtd') WHERE produto_id='$pid'";
+        if (mysqli_query($con, $query)){
+          header("Location: produtos.php");
+        } else {
+          $error = "Não foi possível salvar a unidade do produto!";
+          $locale = "produtos.php";
+          header("Location: error.php?error_msg=$error&locale=$locale");
+        }
       } else {
         $error = "Não foi possível salvar o produto!";
         $locale = "produtos.php";
@@ -60,6 +78,7 @@
       <div class="campos">
       <div class="header-formulario"><a href="produtos.php" class="previous-button2"></a><div class="title"><?php IF($acao=="adicionar"){ echo 'Cadastro - Produto';} else {echo 'Editar';}?></div></div>
       <?php
+      // SELECT DOS DADOS DO PRODUTO
         @$query = "SELECT nome, data_entrega, data_validade, desc_produto, quant , tipo_id FROM produto WHERE pid = '$pid'";
         $select = mysqli_query($con, $query);
         $row = mysqli_fetch_array($select);
@@ -68,11 +87,12 @@
       <div class="obg">*</div><input type="text" maxlength="45" name="nome" placeholder="Nome:" class="input" value="<?=$row['nome'];?>"></input>
       Data de Entrega: <input type="date" name="dat_entrega" class="input" value="<?=$row['data_entrega'];?>"></input>
       Vencimento: <input type="date" name="dat_venc" class="input" value="<?=$row['data_validade'];?>"></input>
-      <input type="number" max="999" name="qtd" placeholder="Quantidade:" class="input" value="<?=$row['quant'];?>">
+      <div class="obg">*</div><input type="number" max="999" name="qtd" placeholder="Quantidade:" class="input" value="<?=$row['quant'];?>">
       <input type="text" max="45" name="desc" placeholder="Descrição:" class="input" value="<?=$row['desc_produto'];?>">
-      Tipo: <select name="tipo" class="select-style1" style="margin-top: 15px;">
+      Tipo: <select name="tipo" class="select-style1" style="margin-top: 15px; margin-right: 15px;">
 
         <?php
+        //COMBO BOX TIPO DE PRODUTO
         $query = "SELECT tid, nome FROM tipo";
         $select = mysqli_query($con,$query);
         while ($result = mysqli_fetch_array($select)) { ?>
@@ -80,7 +100,17 @@
       <?php } ?>
 
       </select>
+      Unidade: <select name="unidade" class="select-style1" style="width: 120px;">
+        <?php
+        //COMBO BOX UNIDADE
+        $query = "SELECT uid, nome FROM unidade_comercial";
+        $select = mysqli_query($con,$query);
+        while ($result = mysqli_fetch_array($select)) { ?>
+          <option value="<?=$result['uid'];?>"><?=$result['nome'];?></option>
+      <?php } ?>
+      </select>
       <input type="submit" name="submit" value="<?php IF($acao=="adicionar"){ echo 'CADASTRAR';} else {echo 'SALVAR';}?>" class="submit"></input>
+      <center><p>CX (Caixa, 20UN) > PL (Palete, 80UN) > CT (Container, 400UN)</center>
     </div>
     </form>
 </div>

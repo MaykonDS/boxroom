@@ -161,6 +161,7 @@ img.icon {
   padding-bottom: 30px;
   background-color: #151515;
   display: block;
+
 }
 .container-boxroom {
   width: 260px;
@@ -270,4 +271,42 @@ h2.info {
   border-radius: 5px;
   height: auto;
   background-color: green;
+}
+input.form {
+  background-color: transparent;
+  border-bottom: 1px solid #b7b7b7;
+  border-radius: 0px;
+  text-align: center;
+  width: 80px;
+  color:white;
+}
+.lancamentos {
+  width: 49.7%;
+  background-color: #151515;
+  height: auto;
+  color: white;
+  font-family: "Calibri";
+  font-weight: 100;
+  float: left;
+  font-size: 21px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.lancamentos .content {
+  width: auto;
+  margin-top: 5px;
+  text-align: left;
+  font-size: 16px;
+  height: auto;
+  color:#ff2954;
+  font-weight: bold;
+}
+.lancamentos .content img {
+  height: 17px;
+  width: 17px;
+  margin-left: 25px;
+  float: right;
+}
+.lancamentos .content a {
+  color: #ff6c7a;
 }
