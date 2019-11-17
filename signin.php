@@ -42,12 +42,12 @@ if (@$_REQUEST['botao']=="ENTRAR")
     // caso queira direcionar para páginas diferentes
     $niv = $coluna['perm'];
     if($niv == "user"){
-      header("Location: home.php");
+      header("Location: captcha.php");
       exit;
     }
 
     if($niv == "admin"){
-      header("Location: home.php");
+      header("Location: captcha.php");
       exit;
     }
     // ----------------------------------------------
