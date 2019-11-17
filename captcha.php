@@ -108,12 +108,12 @@ span {
                 $cid = $_POST['audio_id'];
                 $resp = strtoupper($_POST['resposta']);
                 $query = "SELECT resposta FROM capcha WHERE cid = $cid AND resposta like '$resp'";
-                echo $query;
+          
                 $result = mysqli_query($con, $query);
                 if (@mysqli_num_rows($result)>0){
-                    echo "TEM RESULTADOOOOO";
+                      header("Location: home.php");
                 } else {
-                    echo "ERRROU";
+                     header("Location: captcha.php");
                 }
             }
         ?>
