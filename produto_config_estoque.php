@@ -29,7 +29,7 @@
     }
     IF(@$_REQUEST['botao']=="Descartar"){
       $epid = $_POST['pos'];
-      $qtd = $_POST[$epid.'qtd_abastecer'];
+      $qtd = $_POST[$epid.'qtd_descartar'];
       //smid 1 = cancelado, 2 = aguardando, 3 = finalziado.
 
       $query = "INSERT INTO `movimentacao_estoque`(`quant`, `smid`, `estoque_produto_id`, `data_mov`, `tipo`)
@@ -41,7 +41,6 @@
         $locale = "produtos.php";
         header("Location: error.php?error_msg=$error&locale=$locale");
       }
-    }
     }
 
     ?>
@@ -63,7 +62,7 @@
     <div class="relatorio-container">
         <?php $query = "SELECT DISTINCT epid, produto_id, nome, estoque_produto.quant, quant_max, quant_min, quant_alert FROM estoque_produto
                         INNER JOIN produto ON produto_id = pid
-                        WHERE estoque_id = '$eid'";
+                        WHERE estoque_id = '$eid' AND produto.ativo=1";
             $result = mysqli_query($con,$query);
            ?>
             <table class="tabela" id="tabela">
@@ -110,44 +109,41 @@
     <div class="background-boxroom" style="display: inline-table">
       <h2 class="title">Lançamentos</h2>
       <div class="lancamentos" style="border-right: 2px solid #4f4f4f">Abastecimentos
-        <?php $query = "SELECT estoque_produto.epid FROM estoque_produto
-                        INNER JOIN movimentacao_estoque ON movimentacao_estoque.estoque_produto_id=epid
-                        WHERE estoque_produto.estoque_id=$eid";
+        <?php $query = "SELECT movimentacao_estoque.meid FROM movimentacao_estoque
+                        INNER JOIN estoque_produto ON estoque_produto.estoque_id=1
+                        WHERE movimentacao_estoque.estoque_produto_id = estoque_produto.epid AND tipo='A'";
         $res = mysqli_query($con,$query);
         while(@$row = mysqli_fetch_array($res)){
-          $epid=$row['epid'];
-          $query = "SELECT meid, movimentacao_estoque.quant,produto.nome, status_movimentacao.nome as stat, data_mov FROM movimentacao_estoque
-                    INNER JOIN status_movimentacao ON status_movimentacao.smid=movimentacao_estoque.smid
-                    INNER JOIN estoque_produto ON estoque_produto_id=estoque_produto.epid
-                    INNER JOIN produto ON estoque_produto.produto_id = pid
-                    WHERE movimentacao_estoque.estoque_produto_id=$epid AND tipo='A'";
+          $meid=$row['meid'];
+          $query = "SELECT movimentacao_estoque.quant, produto.nome, status_movimentacao.nome as stat, data_mov FROM movimentacao_estoque
+          INNER JOIN status_movimentacao ON status_movimentacao.smid=movimentacao_estoque.smid
+          INNER JOIN produto ON pid=(SELECT produto_id FROM estoque_produto WHERE epid=movimentacao_estoque.estoque_produto_id ) WHERE meid='$meid' ";
           $res2 = mysqli_query($con,$query);
           while(@$row2 = mysqli_fetch_array($res2)){ ?>
             <div class="content"><a><?=$row2['data_mov']?></a><?=$row2['nome']?><a>Quant.:</a><?=$row2['quant']?>UN<a>
             Status:</a><a style="color: <?php IF($row2['stat']=='Aguardando'){ echo '#ff871c'; } else if($row2['stat']=='Finalizado'){ echo '#5f5';} else { echo '#ff2e2e';} ?>"><?=$row2['stat']?></a>
-            <?php IF($row2['stat']=='Aguardando'){ ?><a href="produto_lancamento_acao.php?pos=<?=$row2['meid']?>&acao=confirmar"><img src="imagens/icons/check.png" class="icon" style="margin-right:90px"></a><a href="produto_lancamento_acao.php?pos=<?=$row2['meid']?>&acao=cancelar"><img src="imagens/icons/remove.png" class="icon"></a> <?php } ?></div>
-        <?php }
+            <?php IF($row2['stat']=='Aguardando'){ ?><a href="produto_lancamento_acao.php?pos=<?=$meid?>&acao=confirmar"><img src="imagens/icons/check.png" class="icon" style="margin-right:90px"></a><a href="produto_lancamento_acao.php?pos=<?=$meid?>&acao=cancelar"><img src="imagens/icons/remove.png" class="icon"></a> <?php } ?></div>
+        <?php
+          }
         }
          ?>
 
       </div>
       <div class="lancamentos" style="border-right: 2px solid #4f4f4f">Descartes
-        <?php $query = "SELECT estoque_produto.epid FROM estoque_produto
-                        INNER JOIN movimentacao_estoque ON movimentacao_estoque.estoque_produto_id=epid
-                        WHERE estoque_produto.estoque_id=$eid";
+        <?php $query = "SELECT movimentacao_estoque.meid FROM movimentacao_estoque
+                        INNER JOIN estoque_produto ON estoque_produto.estoque_id=1
+                        WHERE movimentacao_estoque.estoque_produto_id = estoque_produto.epid AND tipo='D'";
         $res = mysqli_query($con,$query);
         while(@$row = mysqli_fetch_array($res)){
-          $epid=$row['epid'];
-          $query = "SELECT meid, movimentacao_estoque.quant,produto.nome, status_movimentacao.nome as stat, data_mov FROM movimentacao_estoque
-                    INNER JOIN status_movimentacao ON status_movimentacao.smid=movimentacao_estoque.smid
-                    INNER JOIN estoque_produto ON estoque_produto_id=estoque_produto.epid
-                    INNER JOIN produto ON estoque_produto.produto_id = pid
-                    WHERE movimentacao_estoque.estoque_produto_id=$epid AND tipo='D'";
+          $meid=$row['meid'];
+          $query = "SELECT movimentacao_estoque.quant, produto.nome, status_movimentacao.nome as stat, data_mov FROM movimentacao_estoque
+          INNER JOIN status_movimentacao ON status_movimentacao.smid=movimentacao_estoque.smid
+          INNER JOIN produto ON pid=(SELECT produto_id FROM estoque_produto WHERE epid=movimentacao_estoque.estoque_produto_id ) WHERE meid='$meid'";
           $res2 = mysqli_query($con,$query);
           while(@$row2 = mysqli_fetch_array($res2)){ ?>
             <div class="content"><a><?=$row2['data_mov']?></a><?=$row2['nome']?><a>Quant.:</a><?=$row2['quant']?>UN<a>
             Status:</a><a style="color: <?php IF($row2['stat']=='Aguardando'){ echo '#ff871c'; } else if($row2['stat']=='Finalizado'){ echo '#5f5';} else { echo '#ff2e2e';} ?>"><?=$row2['stat']?></a>
-            <?php IF($row2['stat']=='Aguardando'){ ?><a href="produto_lancamento_acao.php?pos=<?=$row2['meid']?>&acao=confirmar"><img src="imagens/icons/check.png" class="icon" style="margin-right:90px"></a><a href="produto_lancamento_acao.php?pos=<?=$row2['meid']?>&acao=cancelar"><img src="imagens/icons/remove.png" class="icon"></a> <?php } ?></div>
+            <?php IF($row2['stat']=='Aguardando'){ ?><a href="produto_lancamento_acao.php?pos=<?=$meid?>&acao=confirmar"><img src="imagens/icons/check.png" class="icon" style="margin-right:90px"></a><a href="produto_lancamento_acao.php?pos=<?=$meid?>&acao=cancelar"><img src="imagens/icons/remove.png" class="icon"></a> <?php } ?></div>
         <?php }
         }
          ?>
