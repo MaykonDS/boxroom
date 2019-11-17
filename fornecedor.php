@@ -82,7 +82,7 @@
           while(@$linha = mysqli_fetch_array($result)){
          ?>
       <div class="container-boxroom">
-        <div class="container-boxroom top"><?=$linha['nome'];?> <a href="fornecedor-vinculo-estoque.php?fid=<?=$linha['fid'];?>"><img src="imagens/icons/add.png"></a></div>
+        <div class="container-boxroom top"><?=$linha['nome'];?> <a href="fornecedor_vinculo_estoque.php?pos=<?=$linha['fid'];?>"><img src="imagens/icons/add.png"></a></div>
         <div class="contatiner-boxroom middle">
           <div class="title">Estoques:</div>
           <?php

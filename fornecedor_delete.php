@@ -13,7 +13,15 @@ if (mysqli_query($con, $query)){
   $query = "DELETE FROM contato WHERE cid=$contato_id";
   if (mysqli_query($con, $query)){
     header("Location: fornecedor.php");
+  } else {
+    $error = "Não foi possível deletar o fornecedor!";
+    $locale = "fornecedor.php";
+    header("Location: error.php?error_msg=$error&locale=$locale");
   }
+} else {
+  $error = "Não foi possível deletar o fornecedor!";
+  $locale = "fornecedor.php";
+  header("Location: error.php?error_msg=$error&locale=$locale");
 }
 
 ?>
