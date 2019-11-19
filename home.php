@@ -1,7 +1,7 @@
 <?php
 require('verify_session.php');
 include "config.php";
-header('Content-type: text/html; charset=utf-8');
+header('Content-type: text/html; charset=iso-8859-1');
 
   $perm = $_SESSION['is_admin'];
   $display = "none";
@@ -12,7 +12,6 @@ header('Content-type: text/html; charset=utf-8');
 ?>
 <html>
     <head>
-    <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style/home.css">
     <link rel="stylesheet" type="text/css" href="style/geral.css">
     <title>BoxRoom - Bem Vindo <?php $_SESSION["nome_usuario"]?></title>
@@ -99,7 +98,7 @@ header('Content-type: text/html; charset=utf-8');
           <div class="card card1">
               <div class="content">
                   <img src="imagens/icons/usuarios.png">
-                  <h3>Usuários</h3>
+                  <h3>Usuarios</h3>
               </div>
           </div>
       </div>

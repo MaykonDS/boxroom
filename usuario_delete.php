@@ -12,4 +12,4 @@ if (mysqli_query($con, $query)){
   $locale = "usuarios.php";
   header("Location: error.php?error_msg=$error&locale=$locale");
 }
- ?>
+?>

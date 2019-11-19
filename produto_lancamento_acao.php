@@ -36,8 +36,8 @@ IF ($acao=="confirmar"){
   //CANCELAR
 } else {
   $query = "UPDATE movimentacao_estoque SET smid=1 WHERE meid='$meid'";
-    if (mysqli_query($con, $query)){
-      header("Location: produtos.php");
-    }
+  if (mysqli_query($con, $query)){
+    header("Location: produtos.php");
+  }
 }
 ?>
